@@ -11,15 +11,18 @@ if [ "$1" = "re" ]; then
 	rm -f ceph.*
 	ceph_dev=$(ssh node-1 dmsetup ls | grep ceph | awk '{print $1}')
 	if ! [ -z "$ceph_dev" ]; then
-		ssh node-1 dmestup remove "$ceph_dev"
+		echo "remove device mapper: $ceph_dev"
+		ssh node-1 dmsetup remove "$ceph_dev"
 	fi
 	ceph_dev=$(ssh node-2 dmsetup ls | grep ceph | awk '{print $1}')
 	if ! [ -z "$ceph_dev" ]; then
-		ssh node-2 dmestup remove "$ceph_dev"
+		echo "remove device mapper: $ceph_dev"
+		ssh node-2 dmsetup remove "$ceph_dev"
 	fi
 	ceph_dev=$(ssh node-3 dmsetup ls | grep ceph | awk '{print $1}')
 	if ! [ -z "$ceph_dev" ]; then
-		ssh node-3 dmestup remove "$ceph_dev"
+		echo "remove device mapper: $ceph_dev"
+		ssh node-3 dmsetup remove "$ceph_dev"
 	fi
 	ssh node-1 dd if=/dev/zero of=/dev/sdc bs=1M count=100
 	ssh node-2 dd if=/dev/zero of=/dev/sdc bs=1M count=100
