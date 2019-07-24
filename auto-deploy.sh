@@ -38,7 +38,7 @@ ceph-deploy install node-2
 ceph-deploy install node-3
 ceph-deploy mon create-initial
 ceph-deploy admin node-1
-ceph-deploy mgr create node1
+ceph-deploy mgr create node-1
 ceph-deploy osd create --data /dev/sdc node-1
 ceph-deploy osd create --data /dev/sdc node-2
 ceph-deploy osd create --data /dev/sdc node-3
