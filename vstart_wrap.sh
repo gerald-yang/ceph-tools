@@ -1,14 +1,18 @@
 #!/bin/bash
 
-NUM_OSD=3
 NUM_MON=1
+NUM_MGR=1
+NUM_OSD=3
+NUM_RGW=2
+NUM_MDS=0
+FRONTEND="civetweb"
 
 if [ "$1" = "-o" ]; then
-	OSD="$NUM_OSD" MON="$NUM_MON" MDS=1 MGR=1 RGW=1 ../src/vstart.sh --rgw_port 7480 --rgw_frontend civetweb -b
+	OSD="$NUM_OSD" MON="$NUM_MON" MDS="$NUM_MDS" MGR="$NUM_MGR" RGW="$NUM_RGW" ../src/vstart.sh --rgw_port 7480 --rgw_frontend "$FRONTEND" -b
 elif [ "$1" = "-k" ]; then
-	OSD="$NUM_OSD" MON="$NUM_MON" MDS=1 MGR=1 RGW=1 ../src/vstart.sh -n -k --rgw_port 7480 --rgw_frontend civetweb -b
+	OSD="$NUM_OSD" MON="$NUM_MON" MDS="$NUM_MDS" MGR="$NUM_MGR" RGW="$NUM_RGW" ../src/vstart.sh -n -k --rgw_port 7480 --rgw_frontend "$FRONTEND" -b
 elif [ "$1" = "--crimson" ]; then
-	MDS=0 MGR=1 OSD=3 MON=1 ../src/vstart.sh -n --without-dashboard --memstore -X -o "memstore_device_bytes=4294967296" --nolockdep --crimson --nodaemon --redirect-output
+	MDS="$NUM_MDS" MGR="$NUM_MGR" OSD="$NUM_OSD" MON="$NUM_MON" ../src/vstart.sh -n --without-dashboard --memstore -X -o "memstore_device_bytes=4294967296" --nolockdep --crimson --nodaemon --redirect-output
 else
-	OSD="$NUM_OSD" MON="$NUM_MON" MDS=1 MGR=1 RGW=1 ../src/vstart.sh -n --rgw_port 7480 --rgw_frontend civetweb -b
+	OSD="$NUM_OSD" MON="$NUM_MON" MDS="$NUM_MDS" MGR="$NUM_MGR" RGW="$NUM_RGW" ../src/vstart.sh -n --rgw_port 7480 --rgw_frontend "$FRONTEND" -b
 fi
